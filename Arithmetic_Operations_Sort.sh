@@ -8,6 +8,8 @@ echo "a=$a b=$b c=$c"
 #!declaring Dictionary and arr
 declare -A dict
 declare -a arr
+ASC='>'
+DESC='<'
 
 #!Calcuting Results Of Arithmetic Operation
 function calculations() {
@@ -36,12 +38,12 @@ function display() {
 function sort()
 {
 	len=${#arr[@]}
-
+	sign=$1
 	for((i=0;i<len;i++))
 	do
 		for((j=i+1;j<=len;j++))
 		do
-			if [[ ${arr[i]%.*} -lt ${arr[j]%.*} ]]
+			if (( $(echo "$((${arr[i]%.*})) $sign $((${arr[j]%.*}))" ) ))
 			then
 				temp=${arr[j]}
 				arr[j]=${arr[i]}
@@ -59,6 +61,9 @@ dictToArray
 #!All Dictionary And Array Element
 #!echo "${dict[@]}"
 echo "Elements in Array BeforeSort " ${arr[@]}
-#!Calling Sort Function
-sort
+#!Calling Sort Function with DESC Variable
+sort $DESC
 echo "Element in Array After Descending Sort " ${arr[@]}
+#!Calling  Sort Function with ASC Variable
+sort $ASC
+echo "Element in Array After Ascending Sort " ${arr[@]}
