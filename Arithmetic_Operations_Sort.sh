@@ -33,12 +33,32 @@ function display() {
 	echo "$c + $a / $b = ${dict[operation3]}"
 	echo "$a % $b + $c = ${dict[operation4]}"
 }
+function sort()
+{
+	len=${#arr[@]}
+
+	for((i=0;i<len;i++))
+	do
+		for((j=i+1;j<=len;j++))
+		do
+			if [[ ${arr[i]%.*} -lt ${arr[j]%.*} ]]
+			then
+				temp=${arr[j]}
+				arr[j]=${arr[i]}
+				arr[i]=$temp
+			fi
+		done
+	done
+
+}
 
 #!Calling Functions
 calculations
 display
 dictToArray
-
 #!All Dictionary And Array Element
 #!echo "${dict[@]}"
-echo "Elements in Array " ${arr[@]}
+echo "Elements in Array BeforeSort " ${arr[@]}
+#!Calling Sort Function
+sort
+echo "Element in Array After Descending Sort " ${arr[@]}
