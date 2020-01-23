@@ -5,20 +5,40 @@ echo "Welcome to Arithmetic Operations And Sorting "
 read -p "Enter Three value for a , b , c : " a b c
 echo "a=$a b=$b c=$c"
 
-#!declaring Dictionary
+#!declaring Dictionary and arr
 declare -A dict
+declare -a arr
 
 #!Calcuting Results Of Arithmetic Operation
-dict[operation1]=$((a + b * c))
-dict[operation2]=$((a * b + c))
-#! Used scale=2 for display .2 floating value
-dict[operation3]=$(echo "scale=2; $c + $a / $b" | bc )
-dict[operation4]=$((a % b + c))
+function calculations() {
+	dict[operation1]=$((a + b * c))
+	dict[operation2]=$((a * b + c))
+	#! Used scale=2 for display .2 floating value
+	dict[operation3]=$(echo "scale=2; $c + $a / $b" | bc )
+	dict[operation4]=$((a % b + c))
+}
+
+#!Storing Dictionary to Array
+function dictToArray() {
+	for((i=0;i<4;i++))
+	do
+		arr[i]=${dict[operation$((i+1))]}
+	done
+}
 
 #!Printing Operation and Result
-echo "$a + $b * $c = ${dict[operation1]}"
-echo "$a * $b + $c = ${dict[operation2]}"
-echo "$c + $a / $b = ${dict[operation3]}"
-echo "$a % $b + $c = ${dict[operation4]}"
+function display() {
+	echo "$a + $b * $c = ${dict[operation1]}"
+	echo "$a * $b + $c = ${dict[operation2]}"
+	echo "$c + $a / $b = ${dict[operation3]}"
+	echo "$a % $b + $c = ${dict[operation4]}"
+}
 
+#!Calling Functions
+calculations
+display
+dictToArray
+
+#!All Dictionary And Array Element
 #!echo "${dict[@]}"
+echo "Elements in Array " ${arr[@]}
