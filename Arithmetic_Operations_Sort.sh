@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -x 
 
 #!Reading Values From User
 echo "Welcome to Arithmetic Operations And Sorting "
@@ -8,8 +8,6 @@ echo "a=$a b=$b c=$c"
 #!declaring Dictionary and arr
 declare -A dict
 declare -a arr
-ASC='>'
-DESC='<'
 
 #!Calcuting Results Of Arithmetic Operation
 function calculations() {
@@ -41,9 +39,9 @@ function sort()
 	sign=$1
 	for((i=0;i<len;i++))
 	do
-		for((j=i+1;j<=len;j++))
+		for((j=$i+1;j<len;j++))
 		do
-			if (( $(echo "$((${arr[i]%.*})) $sign $((${arr[j]%.*}))" ) ))
+			if(( ${arr[i]%.*} $sign ${arr[$j]%.*} ))
 			then
 				temp=${arr[j]}
 				arr[j]=${arr[i]}
@@ -62,8 +60,8 @@ dictToArray
 #!echo "${dict[@]}"
 echo "Elements in Array BeforeSort " ${arr[@]}
 #!Calling Sort Function with DESC Variable
-sort $DESC
+sort '>'
 echo "Element in Array After Descending Sort " ${arr[@]}
 #!Calling  Sort Function with ASC Variable
-sort $ASC
+sort '<'
 echo "Element in Array After Ascending Sort " ${arr[@]}
